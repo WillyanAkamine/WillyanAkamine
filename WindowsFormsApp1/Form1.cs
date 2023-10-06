@@ -81,6 +81,7 @@ namespace WindowsFormsApp1
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
                 );
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -90,6 +91,41 @@ namespace WindowsFormsApp1
             txbemail.Clear();
             mtbCPF.Clear();
             cmbgener.ResetText();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbemail_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbgener_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txbemail_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbsenha_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
