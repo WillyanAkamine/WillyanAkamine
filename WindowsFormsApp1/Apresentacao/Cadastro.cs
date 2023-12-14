@@ -8,12 +8,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BCrypt.Net;
 
 namespace WindowsFormsApp1
 {
-    public partial class Form1 : Form
+    public partial class Cadastro : Form
     {
-        public Form1()
+        private const string V = @"INSERT INTO User013 VALUES 
+            (@Nome, @Job, @Email, @CPF, @Gender, @Senha)";
+
+        public Cadastro()
         {
             InitializeComponent();
         }
@@ -35,31 +39,42 @@ namespace WindowsFormsApp1
 
         private void btninserir(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txbnome.Text) || string.IsNullOrEmpty(txbemail.Text) || string.IsNullOrEmpty(tbsenha.Text))
+            {
+                MessageBox.Show("Por favor, preencha todos os campos obrigatórios: Nome, Email e Senha", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            { 
             MessageBox.Show(
                 "Nome: " + txbnome.Text +
                 "Profissâo: " + txbjob.Text +
                 "Email: " + txbemail.Text +
                 "CPF: " + mtbCPF.Text +
-                "Gênero: " + cmbgener.Text,
+                "Gênero: " + cmbgener.Text +
+                "Senha: " + tbsenha.Text,
                 "CADASTRO",
                  MessageBoxButtons.OK,
                  MessageBoxIcon.Information
                  );
+            Login form1 = new Login(); // Cria uma instância do Form1
+            this.Hide(); // Oculta o Form2 (opcional)
+            form1.Show(); // Exibe o Form1
 
 
             Connection connection = new Connection();
             SqlCommand sqlCommand = new SqlCommand();
 
             sqlCommand.Connection = connection.ReturnConnection();
-            sqlCommand.CommandText = @"INSERT INTO User013 VALUES 
-            (@name, @job, @email, @cpf, @gener)"
+            sqlCommand.CommandText = V
             ;
 
-            sqlCommand.Parameters.AddWithValue("@name", txbnome.Text);
-            sqlCommand.Parameters.AddWithValue("@job", txbjob.Text);
-            sqlCommand.Parameters.AddWithValue("@email", lbemail.Text);
-            sqlCommand.Parameters.AddWithValue("@cpf", mtbCPF.Text);
-            sqlCommand.Parameters.AddWithValue("@gener", cmbgener.Text);
+            sqlCommand.Parameters.AddWithValue("@Nome", txbnome.Text);
+            sqlCommand.Parameters.AddWithValue("@Job", txbjob.Text);
+            sqlCommand.Parameters.AddWithValue("@Email", txbemail.Text);
+            sqlCommand.Parameters.AddWithValue("@CPF", mtbCPF.Text);
+            sqlCommand.Parameters.AddWithValue("@Gender", cmbgener.Text);
+            sqlCommand.Parameters.AddWithValue("@Senha", tbsenha.Text);
+
 
             try
             {
@@ -81,6 +96,7 @@ namespace WindowsFormsApp1
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
                 );
+            }
             
         }
 
@@ -91,6 +107,7 @@ namespace WindowsFormsApp1
             txbemail.Clear();
             mtbCPF.Clear();
             cmbgener.ResetText();
+            tbsenha.Clear();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -124,6 +141,11 @@ namespace WindowsFormsApp1
         }
 
         private void tbsenha_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txbnome_TextChanged(object sender, EventArgs e)
         {
 
         }
